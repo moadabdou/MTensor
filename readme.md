@@ -39,7 +39,7 @@ This is a simple implementation of a Tensor-like library in C++ aimed at underst
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/moadabdou/MTensor.git
    ```
 
 2. **Build the library:**
