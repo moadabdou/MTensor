@@ -1,6 +1,6 @@
-# README for MTensor : PyTorch-Like Library in C++
+# <img src="./assets/logo.png" width="45" align="left"> MTensor
 
-![Logo](./assets/logo.png) 
+# PyTorch-Like Library in C++
 
 ## Overview
 This is a simple implementation of a Tensor-like library in C++ aimed at understanding the language and how complex objects can be implemented from scratch. The library provides basic operations at the Scalar level, a high-dimensional `Tensor` object that supports a variety of mathematical operations, gradient tracking for backpropagation, and a basic neural network module. It is primarily designed for learning purposes and is not optimized for real-world applications.
