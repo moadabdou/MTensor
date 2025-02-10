@@ -48,7 +48,7 @@ std::shared_ptr<ScalarValue> Scalar::Value() const{
 }
 
 void Scalar::_backward(){
-    std::cout << "back called\n" ;
+    //std::cout << "back called\n" ;
     wrapped_value->operation->grad(*this);
     if ((!dynamic_cast<Initilization*>( wrapped_value->operation.get()))) {
         wrapped_value->grad = 0;
