@@ -1,20 +1,6 @@
 
 <img src="./assets/logo.png" width="45" align="left">
 
-# 🚀 MTensor 2.0 is here!
-
-**MTensor 2.0** brings a major leap over version [1.0](https://github.com/moadabdou/MTensor), with a complete redesign focused on modularity, performance, and PyTorch-like usability — all on the CPU.
-
-Compared to the initial prototype in v1.0, this release introduces:
-
-* A smarter `TensorImpl` architecture
-* Robust autograd and computation graph support
-* AVX512 fused optimizers
-* Neural network training pipeline
-* Dataset loaders, visualization, and more
-
----
-
 ## 🧠 What is MTensor?
 
 **MTensor** is a CPU-based deep learning library written in C++, inspired by PyTorch's design. It supports dynamic graphs, training, autograd, and a wide range of tensor and neural network operations.
