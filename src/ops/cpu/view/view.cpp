@@ -11,7 +11,7 @@ namespace ops{
     View::View(const std::vector<int64_t>& shape, bool inc_counter )
     {
         if (! TensorImpl::is_valid_shape(shape)){
-            throw std::invalid_argument("error : View() invalid shape is given");
+            throw std::invalid_argument("error : View() invalid shape was given");
         }
         if(inc_counter){
             m_name = "View"+std::to_string(count);

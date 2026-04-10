@@ -806,14 +806,14 @@ dnnl::memory create_user_memory(
 // Reorders data to the primitive's preferred format if necessary.
 dnnl::memory reorder_to_primitive_if_needed(
     dnnl::memory& user_mem,
-    dnnl::memory::desc& prim_md,
+    const dnnl::memory::desc& prim_md,
     dnnl::engine& engine,
     dnnl::stream& stream)
 {
     if (user_mem.get_desc() == prim_md) {
         return user_mem;
     }
-    
+
     auto prim_mem = dnnl::memory(prim_md, engine);
     dnnl::reorder(user_mem, prim_mem).execute(stream, user_mem, prim_mem);
     return prim_mem;
@@ -850,9 +850,10 @@ void deconv_backward(
         auto prim_diff_dst_mem = reorder_to_primitive_if_needed(user_diff_dst_mem, bwd_data_pd.diff_dst_desc(), engine, stream);
         auto prim_diff_src_mem = dnnl::memory(bwd_data_pd.diff_src_desc(), engine);
 
-        auto bwd_data_args = std::unordered_map<int, dnnl::memory>{
-            {DNNL_ARG_DIFF_DST, prim_diff_dst_mem}, {DNNL_ARG_WEIGHTS, prim_w_mem}, {DNNL_ARG_DIFF_SRC, prim_diff_src_mem}
-        };
+        std::unordered_map<int, dnnl::memory> bwd_data_args;
+        bwd_data_args[DNNL_ARG_DIFF_DST] = prim_diff_dst_mem;
+        bwd_data_args[DNNL_ARG_WEIGHTS] = prim_w_mem;
+        bwd_data_args[DNNL_ARG_DIFF_SRC] = prim_diff_src_mem;
         dnnl::deconvolution_backward_data(bwd_data_pd).execute(stream, bwd_data_args);
 
         auto user_diff_src_md = dnnl::memory::desc(x->shape(), dnnl::memory::data_type::f32, row_major_stride(x->shape()));
@@ -893,11 +894,12 @@ void deconv_backward(
         auto prim_diff_w_mem = dnnl::memory(bwd_weights_pd.diff_weights_desc(), engine);
         auto prim_diff_b_mem = b ? dnnl::memory(bwd_weights_pd.diff_bias_desc(), engine) : dnnl::memory();
 
-        auto bwd_weights_args = std::unordered_map<int, dnnl::memory>{
-            {DNNL_ARG_SRC, prim_x_mem}, {DNNL_ARG_DIFF_DST, prim_diff_dst_mem}, {DNNL_ARG_DIFF_WEIGHTS, prim_diff_w_mem}
-        };
+        std::unordered_map<int, dnnl::memory> bwd_weights_args;
+        bwd_weights_args[DNNL_ARG_SRC] = prim_x_mem;
+        bwd_weights_args[DNNL_ARG_DIFF_DST] = prim_diff_dst_mem;
+        bwd_weights_args[DNNL_ARG_DIFF_WEIGHTS] = prim_diff_w_mem;
         if (b) {
-            bwd_weights_args.insert({DNNL_ARG_DIFF_BIAS, prim_diff_b_mem});
+            bwd_weights_args[DNNL_ARG_DIFF_BIAS] = prim_diff_b_mem;
         }
         dnnl::deconvolution_backward_weights(bwd_weights_pd).execute(stream, bwd_weights_args);
         stream.wait();

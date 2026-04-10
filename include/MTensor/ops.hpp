@@ -991,8 +991,8 @@ public:
     //inc_counter is true for operations that are inserted in grad graph
     BatchNormalization(
         bool training,
-        std::shared_ptr<TensorImpl>& running_mean,
-        std::shared_ptr<TensorImpl>& running_variance,
+        const std::shared_ptr<TensorImpl>& running_mean,
+        const std::shared_ptr<TensorImpl>& running_variance,
         float m_momentum = 0.1,
         bool inc_counter = false
     );

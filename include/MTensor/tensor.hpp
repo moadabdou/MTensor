@@ -30,7 +30,7 @@ namespace mt {
             Shape stride() const;
             int64_t data_offset() const;
             int64_t numel() const;
-            float* Tensor::data_ptr() const;  
+            float* data_ptr() const;
             bool is_contiguous() const;
             bool is_leaf() const;
             bool is_scalar() const;

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmake *)",
+      "Bash(mkdir *)",
+      "Bash(touch *)",
+      "Bash(rm *)",
+      "Bash(/home/moadabdou/coding/serious_projects/mtensor/build/linux/examples/lenet5 *)"
+    ]
+  },
+  "$version": 3
+}

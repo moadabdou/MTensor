@@ -41,7 +41,7 @@ public:
     static std::shared_ptr<TensorImpl> randn(const std::vector<int64_t>& shape, float mean = 0, float stddev = 1, int64_t seed = -1, bool requires_grad = false);
     static std::shared_ptr<TensorImpl> rand(const std::vector<int64_t>& shape,float lower_bound = 0, float upper_bound = 1, int64_t seed = -1, bool requires_grad = false);
 
-    std::shared_ptr<TensorImpl> TensorImpl::detach() const;
+    std::shared_ptr<TensorImpl> detach() const;
 
     std::vector<int64_t> shape() const;
     std::vector<int64_t> stride() const;
@@ -101,16 +101,16 @@ private:
 
     std::string m_name;
 
-    std::vector<int64_t> m_shape;  
-    std::vector<int64_t> m_stride;
-    
-    int64_t m_data_offset = 0;
-    int64_t m_numel = 0;
-    std::shared_ptr<float> m_data;
-
     bool m_requires_grad = false;
     std::shared_ptr<TensorImpl> m_grad = nullptr;
     std::shared_ptr<ops::Operation> m_grad_fn;
+
+    std::vector<int64_t> m_shape;
+    std::vector<int64_t> m_stride;
+
+    int64_t m_data_offset = 0;
+    int64_t m_numel = 0;
+    std::shared_ptr<float> m_data;
 
     bool m_is_contiguous = true;
 

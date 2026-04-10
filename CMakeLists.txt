@@ -19,7 +19,7 @@ find_package(PNG REQUIRED)
 
 add_subdirectory(src)
 #add_subdirectory(tests)
-#add_subdirectory(examples)
+add_subdirectory(example/LeNet-5)
 
 
 

@@ -37,13 +37,13 @@ namespace data{
 
     MTENSOR_API cimg_library::CImg<float> tensor_to_image(const Tensor& tensor){
 
-        auto& shape = tensor.shape();
+        const auto& shape = tensor.shape();
 
         if (shape.size() != 4 || shape[0] != 1 || shape[1] > 4){
             throw std::invalid_argument(" tensot_to_image(): input tensor must be 4D tensor with N=1 (single element in the batch) and C <= 4");
         }
 
-        auto& stride = tensor.stride();
+        const auto& stride = tensor.stride();
         auto data_ptr = tensor.data_ptr() + tensor.data_offset();
 
 

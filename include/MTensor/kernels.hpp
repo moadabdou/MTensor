@@ -1,13 +1,12 @@
 #include <config/kernels_export.hpp>
+#include <cstdint>
 
-using int64_t = long long;
 
-
-KERNEL_API void fused_adam_kernel_avx512( 
+KERNEL_API void fused_adam_kernel_avx512(
     float *param,
     float *grad,
-    float *m, 
-    float *v, 
+    float *m,
+    float *v,
     int64_t N,
     float beta1,
     float beta2,
@@ -17,11 +16,11 @@ KERNEL_API void fused_adam_kernel_avx512(
     float lr
 );
 
-KERNEL_API void fused_adam_w_kernel_avx512( 
+KERNEL_API void fused_adam_w_kernel_avx512(
     float *param,
     float *grad,
-    float *m, 
-    float *v, 
+    float *m,
+    float *v,
     int64_t N,
     float beta1,
     float beta2,
@@ -32,17 +31,17 @@ KERNEL_API void fused_adam_w_kernel_avx512(
     float weight_decay
 );
 
-KERNEL_API void fused_sgd_m_kernel_avx512( 
+KERNEL_API void fused_sgd_m_kernel_avx512(
     float *param,
     float *grad,
-    float *v, 
+    float *v,
     int64_t N,
     float u,
     float lr,
     float weight_decay
 );
 
-KERNEL_API void fused_sgd_kernel_avx512( 
+KERNEL_API void fused_sgd_kernel_avx512(
     float *param,
     float *grad,
     int64_t N,

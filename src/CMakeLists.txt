@@ -214,10 +214,11 @@ set_target_properties(MTensor PROPERTIES
 
 
 target_compile_definitions(
-  MTensor 
+  MTensor
   PRIVATE MTENSOR_EXPORTS
-  PRIVATE mt_use_img 
+  PRIVATE mt_use_img
   PUBLIC  cimg_use_png
+  PUBLIC  cimg_display=0
 )
 
 

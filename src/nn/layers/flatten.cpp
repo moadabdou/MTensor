@@ -6,7 +6,7 @@ namespace nn {
     FlattenImpl::FlattenImpl(){}
 
     Tensor FlattenImpl::forward(Tensor input){
-        auto& N = input.shape()[0];
+        int64_t N = input.shape()[0];
         return input.reshape({ N , input.numel()/N});
     }
 

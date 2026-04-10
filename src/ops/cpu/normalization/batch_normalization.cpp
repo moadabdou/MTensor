@@ -20,8 +20,8 @@ namespace ops{
 
     BatchNormalization::BatchNormalization(
         bool training,
-        std::shared_ptr<TensorImpl>& running_mean,
-        std::shared_ptr<TensorImpl>& running_variance,
+        const std::shared_ptr<TensorImpl>& running_mean,
+        const std::shared_ptr<TensorImpl>& running_variance,
         float momentum,
         bool inc_counter):
         m_momentum(momentum),
