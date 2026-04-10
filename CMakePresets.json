@@ -7,30 +7,81 @@
   },
   "configurePresets": [
     {
-      "name": "default",
-      "hidden": false,
-      "generator": "Visual Studio 17 2022",
-      "binaryDir": "build",
+      "name": "base",
+      "hidden": true,
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/external/vcpkg/scripts/buildsystems/vcpkg.cmake"
       }
     },
     {
-      "name": "release",
-      "inherits": "default",
-      "binaryDir": "build"
+      "name": "windows-vs2022",
+      "inherits": "base",
+      "hidden": false,
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/windows",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "windows-release",
+      "inherits": "windows-vs2022",
+      "hidden": false,
+      "binaryDir": "${sourceDir}/build/windows"
+    },
+    {
+      "name": "linux-ninja",
+      "inherits": "base",
+      "hidden": false,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "VCPKG_TARGET_TRIPLET": "x64-linux"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "linux-ninja-debug",
+      "inherits": "base",
+      "hidden": false,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "VCPKG_TARGET_TRIPLET": "x64-linux"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
     }
   ],
   "buildPresets": [
     {
       "name": "release",
-      "configurePreset": "release",
+      "configurePreset": "windows-release",
       "configuration": "Release"
     },
     {
       "name": "debug",
-      "configurePreset": "default",
+      "configurePreset": "windows-vs2022",
       "configuration": "Debug"
+    },
+    {
+      "name": "linux-release",
+      "configurePreset": "linux-ninja"
+    },
+    {
+      "name": "linux-debug",
+      "configurePreset": "linux-ninja-debug"
     }
   ]
 }

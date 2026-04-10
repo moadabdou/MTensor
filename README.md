@@ -5,7 +5,7 @@
 
 **MTensor** is a CPU-based deep learning library written in C++, inspired by PyTorch's design. It supports dynamic graphs, training, autograd, and a wide range of tensor and neural network operations.
 
-> ⚠️ **Beta Notice**: MTensor 2.0 is currently tested **only on Windows** with **MSVC 17 (Visual Studio 2022)**. Cross-platform support is coming soon.
+> ⚠️ **Beta Notice**: MTensor 2.0 is tested on **Windows** (MSVC 17) and **Linux** (GCC 11+/Clang 14+). macOS support is coming soon.
 
 ---
 
@@ -72,7 +72,30 @@
 
 ## ⚙️ Installation
 
-> 🧪 MTensor 2.0 is tested on **Windows only**, with **MSVC 17 (Visual Studio 2022)**. All dependencies are managed with `vcpkg`.
+> 🧪 MTensor 2.0 is tested on **Windows** (MSVC 17) and **Linux** (GCC 11+/Clang 14+). All dependencies are managed with `vcpkg`.
+
+---
+
+### Prerequisites
+
+#### Windows
+- Visual Studio 2022 (MSVC 17)
+- CMake 3.31.6+
+
+#### Linux (Ubuntu/Debian)
+```bash
+sudo apt-get install -y build-essential ninja-build cmake libomp-dev
+```
+
+#### Linux (Fedora/RHEL)
+```bash
+sudo dnf install -y gcc-c++ ninja-build cmake libomp-devel
+```
+
+#### Linux (Arch Linux / CachyOS)
+```bash
+sudo pacman -S gcc ninja cmake openmp
+```
 
 ---
 
@@ -100,6 +123,7 @@ Bootstrap vcpkg:
 ```bash
 cd external/vcpkg
 ./bootstrap-vcpkg.bat     # Windows
+./bootstrap-vcpkg.sh      # Linux
 ```
 
 Install dependencies:
@@ -110,14 +134,24 @@ Install dependencies:
 
 > 📦 Dependencies are defined in `vcpkg.json`.
 
+> 🔧 On Linux, vcpkg will automatically use the `x64-linux` triplet.
+
 ---
 
 ### 3. Configure the Project
 
-Use the default CMake preset (configured for Visual Studio 17 2022):
+#### Windows (Visual Studio 2022)
+
+Use the default CMake preset:
 
 ```bash
-cmake --preset default
+cmake --preset windows-vs2022
+```
+
+#### Linux (Ninja)
+
+```bash
+cmake --preset linux-ninja
 ```
 
 > 🛠️ To change generator or toolchain, edit `CMakePresets.json`.
@@ -125,6 +159,8 @@ cmake --preset default
 ---
 
 ### 4. Build the Project
+
+#### Windows
 
 Build in **release** mode:
 
@@ -138,7 +174,21 @@ Or in **debug** mode:
 cmake --build --preset debug
 ```
 
-> 🧪 This also builds example projects to verify functionality.
+#### Linux
+
+Build in **release** mode:
+
+```bash
+cmake --build --preset linux-release
+```
+
+Or in **debug** mode:
+
+```bash
+cmake --build --preset linux-debug
+```
+
+> 🧪 The build produces a shared library (`MTensor.dll` on Windows, `libMTensor.so` on Linux) in the `build/` directory.
 
 ---
 
@@ -147,7 +197,8 @@ cmake --build --preset debug
 * ✅ Tensor & autograd engine
 * ✅ Neural network layers and optimizers
 * ✅ Dataset/dataloader system
+* ✅ Linux support
 * 🔜 External project integration
-* 🔜 Cross-platform (Linux/macOS) support
+* 🔜 macOS support
 * 🔜 Python bindings
 * 🔜 Training UI (browser-based)

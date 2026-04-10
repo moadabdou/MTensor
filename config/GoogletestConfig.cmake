@@ -7,7 +7,11 @@ FetchContent_Declare(
   URL_HASH     SHA256=edd885a1ab32b6999515a880f669efadb80b3f880215f315985fa3f6eca7c4d3
 )
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+# Force shared CRT for Windows MSVC
+if(MSVC)
+  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+endif()
+
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()

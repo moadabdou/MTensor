@@ -203,6 +203,13 @@ target_sources(MTensor PRIVATE
 
 set_target_properties(MTensor PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+  ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+  
+  # RPATH settings for Linux shared library loading
+  BUILD_RPATH_USE_ORIGIN TRUE
+  BUILD_RPATH "$ORIGIN/../lib"
+  INSTALL_RPATH "$ORIGIN/../lib"
 )
 
 
